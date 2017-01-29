@@ -5,6 +5,9 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import com.mgd.math.FibonacciSeq;
+import com.mgd.pattern.GoldenSpiralPattern;
+import com.mgd.pattern.bounds.Bounds;
+import com.mgd.pattern.bounds.RectangleBounds;
 /**
   *@author:michael dunleavy
   */
@@ -38,6 +41,11 @@ public class MyGUI extends JFrame{
 		display.initialize();
 		ui.initialize();
 
+		RectangleBounds goldenRectangle = new RectangleBounds(0, 0,
+				display.getWidth(), display.getHeight());
+
+		display.setPattern(new GoldenSpiralPattern(
+					goldenRectangle, 5));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		panel.setBackground(Color.blue);
@@ -49,6 +57,7 @@ public class MyGUI extends JFrame{
 		getContentPane().add(panel);
 
 		setSize(width, height);
+
 		setVisible(true);
 	}
 

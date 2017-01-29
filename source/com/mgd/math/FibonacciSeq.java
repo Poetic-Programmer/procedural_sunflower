@@ -1,5 +1,7 @@
 package com.mgd.math;
 
+import com.mgd.math.Rectangle;
+
 import java.util.List;
 import java.util.ArrayList;
 /**
@@ -44,6 +46,28 @@ public class FibonacciSeq{
 		return list;
 	}
 
+	public List<Integer> getSubList(int start, int end){
+		List<Integer> newList = new ArrayList<>();
+		int size = end - start;
+		if(size <= 0) {
+			System.out.println("invalid fib index");
+			return newList;
+		}
+		if(start < 0 || start >= NUM_VALUES) {
+			System.out.println("Invalid fib start index");
+			return newList;
+		}
+		if(end <= 0 || end > NUM_VALUES){
+			System.out.println("Invalid Fib end index");
+			return newList;
+		}
+
+		for(int i = start; i < end; ++i){
+			newList.add(sequenceList.get(i));
+		}
+		return newList;
+	}
+
 	public int getValueAt(int index) {
 		// check bounds
 		if(index < 0 || index >= NUM_VALUES){
@@ -51,6 +75,22 @@ public class FibonacciSeq{
 			return 0;
 		}
 		return sequenceList.get(index);
+	}
+	public int getIndexOf(int val){
+		int offset = 0;
+		boolean found = false;
+		for(Integer i : sequenceList){
+			if(i == val) {
+				found = true;
+				break;
+			}
+			offset++;
+		}
+		if (!found){
+			System.out.println(val + " is not in the "
+					+ "defined fibonacci sequence");
+		}
+		return offset;
 	}
 	public int getSequenceSize() { return NUM_VALUES; }
 
@@ -68,6 +108,31 @@ public class FibonacciSeq{
 		return sequenceList.get(index);
 
 	}
+
+	public boolean isInSequence(int number){
+		for(Integer i : sequenceList){
+			if(number == i) return true;
+		}
+		return false;
+	}
+
+	public boolean isGoldenRectangle(int width, int height){
+		// make width the greatest value to keep algorithm similar
+		if(width < height){
+			// swap width and height...
+			width += height; 
+			height -= width;
+			width -= height;
+		}
+		
+		// check if they are in sequence!
+		if(isInSequence(width)){
+			int testHeight = getClosestLowerValue(width-1);
+			if(height == testHeight) return true;
+		}
+		return false;
+	}
+
 	public void printSequence(){
 		int charCount = 0;
 		int charPerLine = 20;
